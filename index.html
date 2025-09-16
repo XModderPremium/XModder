@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Xmodder Script - Steal A A Brainrot</title>
+  <style>
+    :root{--bg:#0b0310;--accent1:#7c3aed;--accent2:#5b21b6;--muted:#c7b8f8}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter, Arial, sans-serif;background:linear-gradient(180deg,#05020a,#0b0413);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{width:100%;max-width:760px}
+    h1{font-size:28px;color:var(--accent1);text-align:center;margin-bottom:6px}
+    p.lead{text-align:center;color:var(--muted);margin-bottom:18px}
+    .card{background:linear-gradient(135deg,rgba(124,58,237,0.14),rgba(91,33,182,0.08));border-radius:12px;padding:18px;border:1px solid rgba(124,58,237,0.12);box-shadow:0 12px 30px rgba(11,3,30,0.6)}
+    .features{display:flex;gap:12px;justify-content:center;margin:12px 0}
+    .feat{background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;min-width:110px}
+    .feat b{display:block;font-size:14px;margin-bottom:6px}
+    .feat span{font-size:13px;color:var(--muted)}
+    .status-row{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+    .status{background:#11071a;border-radius:10px;padding:10px 14px;min-width:150px;border:1px solid rgba(124,58,237,0.08);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+    .status .label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .status .value{font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .online{background:#22c55e;box-shadow:0 6px 18px rgba(34,197,94,0.12)}
+    .offline{background:#fb7185;box-shadow:0 6px 18px rgba(251,113,133,0.08)}
+    .cta{margin-top:16px;text-align:center}
+    .btn{background:linear-gradient(90deg,var(--accent1),var(--accent2));padding:12px 20px;border-radius:10px;color:white;font-weight:800;border:none;cursor:pointer;font-size:15px;box-shadow:0 10px 26px rgba(91,33,182,0.22)}
+    .btn:active{transform:translateY(2px)}
+    .small{margin-top:12px;text-align:center;color:var(--muted);font-size:13px}
+    @media (max-width:560px){.status-row{flex-direction:column;align-items:center}.features{flex-direction:column;gap:8px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Xmodder Script - Steal A A Brainrot</h1>
+    <p class="lead">Get your trial key — quick preview. Minimal details and status blocks below.</p>
+
+    <div class="card" role="region" aria-label="Script panel">
+      <div class="features">
+        <div class="feat"><b>Invisible</b><span>Temporary cloak</span></div>
+        <div class="feat"><b>Infinite Jump</b><span>Extended jumps</span></div>
+        <div class="feat"><b>Semi Wallhack</b><span>Partial visibility</span></div>
+      </div>
+
+      <div class="status-row">
+        <div class="status" aria-live="polite">
+          <div class="label">Script Status</div>
+          <div class="value"><span class="dot online"></span> Online</div>
+        </div>
+
+        <div class="status">
+          <div class="label">Key Server</div>
+          <div class="value"><span class="dot online"></span> Online</div>
+        </div>
+
+        <div class="status">
+          <div class="label">Players</div>
+          <div class="value">123</div>
+        </div>
+
+        <div class="status">
+          <div class="label">Clicks</div>
+          <div class="value" id="clickCounter">0</div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <button id="getKeyBtn" class="btn">GET TRIAL KEY</button>
+        <div class="small">Opens the Roblox share link in a new tab, then opens the cooldown page in another tab.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:12px;color:rgba(199,184,248,0.85);font-size:13px">Title: <strong>Xmodder Script - Steal A A Brainrot</strong></div>
+  </div>
+
+  <script>
+    (function(){
+      const first = 'https://www.roblox.com/share?code=a1d4c0556586b44fb43f39ff9dfc6fd9&type=Server';
+      const second = 'https://zamasxmodder.github.io/cooldown/';
+      const btn = document.getElementById('getKeyBtn');
+      const counter = document.getElementById('clickCounter');
+      let clicks = 0;
+
+      btn.addEventListener('click', function(){
+        clicks++;
+        counter.textContent = clicks;
+
+        // Intentamos abrir dos pestañas: primero Roblox, luego la página de cooldown.
+        // Nota: algunos navegadores pueden bloquear múltiples popups. Si eso pasa, hay fallback.
+        const w1 = window.open(first, '_blank', 'noopener,noreferrer');
+
+        setTimeout(function(){
+          const w2 = window.open(second, '_blank', 'noopener,noreferrer');
+
+          // Fallbacks si el navegador bloquea popups:
+          if(!w1 && !w2){
+            // Ambos bloqueados -> navegamos en la misma pestaña a la primera página.
+            window.location.href = first;
+          } else if(!w1 && w2){
+            // Se abrió solo la segunda pestaña -> navegamos a la primera en la misma pestaña.
+            window.location.href = first;
+          } else if(w1 && !w2){
+            // Se abrió la primera pero la segunda fue bloqueada -> nada más.
+            // Podríamos mostrar un aviso si quieres.
+          }
+        }, 600);
+      });
+    })();
+  </script>
+</body>
+</html>
